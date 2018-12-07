@@ -41,7 +41,15 @@ const map = {
 }
 
 
-document.querySelector('a-scene').addEventListener('render-target-loaded', () => {
+var scene = document.querySelector('a-scene');
+
+if (scene.hasLoaded) {
+  run();
+} else {
+  scene.addEventListener('loaded', run);
+}
+
+function run () {
   const WALL_SIZE = 3;
   const WALL_HEIGHT = 12;
   const el = document.querySelector('#walls');
@@ -99,4 +107,6 @@ document.querySelector('a-scene').addEventListener('render-target-loaded', () =>
       }
     }
     document.querySelector('#player').setAttribute('position', playerPos);
-});
+}
+
+

@@ -18,7 +18,7 @@
   <title>VR Inside</title>
   <meta name="description" content="Now in 3D!">
  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.8.2/aframe-master.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
 <script>
 AFRAME.registerComponent('position-listener', {
@@ -157,6 +157,7 @@ AFRAME.registerComponent('position-listener', {
       camera="user-height: 2"
       universal-controls
       look-controls
+      
       kinematic-body
       listener
       fov="80"
@@ -345,7 +346,7 @@ AFRAME.registerComponent('position-listener', {
 
 
     <!-- Ground -->
-    <a-grid id="ground" static-body material="src: #floor; repeat: 15 15" rotation="0 -90 0"></a-grid>
+    <a-grid id="ground" static-body material="src: #floor; repeat: 15 15" rotation="-90 0 0"></a-grid>
 
     <!-- Walls (used by map.js -->)
     <a-entity id="walls"></a-entity>

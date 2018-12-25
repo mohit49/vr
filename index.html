@@ -17,9 +17,11 @@
   <link rel="stylesheet" href="main.css">
   <title>VR Inside</title>
   <meta name="description" content="Now in 3D!">
- 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three-vrcontrols@1.0.0/VRControls.min.js"></script>
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.js"></script>
 <script>
 AFRAME.registerComponent('position-listener', {
   tick() {
@@ -151,30 +153,23 @@ AFRAME.registerComponent('position-listener', {
 
     <a-light type="ambient" color="white" position="0 80 0"></a-light>
 
-    <a-entity
-      id="player" 
-      position-listener
-      camera="user-height: 2"
-      universal-controls
-      look-controls
-      
-      kinematic-body
-      listener
-      fov="80"
-      near='0.01'
-      far="10000"
+    <!-- movement controls-->
+    <a-entity id="rig"
+    movement-controls
+    position="0 0 0">
+      <a-entity
+      id="player"
+      camera="user-height: 2"             
+      look-controls="pointerLockEnabled: true"
       position="0 9 0"
-      
-    >
-  
-        
-    
-    <a-entity cursor="fuse: true; fuseTimeout: 500"
-    position="0 0 -1"
-    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-    material="color: white; shader: flat">
-</a-entity>
-  </a-entity>
+      >
+        <a-entity cursor="fuse: true; fuseTimeout: 500"
+        position="0 0 -1"
+        geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+        material="color: white; shader: flat">
+        </a-entity>
+      </a-entity>
+    </a-entity>
    
       
  
@@ -359,7 +354,7 @@ AFRAME.registerComponent('position-listener', {
    
 
   </a-scene>
-
+   
   <script src="js/map.js"></script>
   <script src="js/video.js"></script>
 

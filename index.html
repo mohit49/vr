@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
   <!-- PWA manifest -->
@@ -11,18 +12,20 @@
   <meta content="yes" name="apple-mobile-web-app-capable">
   <meta content="black" name="apple-mobile-web-app-status-bar-style">
   <meta content="Personal Assistant " name="apple-mobile-web-app-title">
-  <link href="icons/icon-152x152.png" rel="apple-touch-icon">
-
-  
+  <link href="img/icons/vr-glasses_512.png" rel="apple-touch-icon">
+    
   <link rel="stylesheet" href="main.css">
   <title>VR Inside</title>
-  <meta name="description" content="Now in 3D!">
+  <meta name="description" content="VR Shopping Experience">
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three-vrcontrols@1.0.0/VRControls.min.js"></script>
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
 <script>
+
 AFRAME.registerComponent('position-listener', {
   tick() {
     const newValue = this.el.getAttribute('position');
@@ -40,9 +43,6 @@ AFRAME.registerComponent('position-listener', {
   },
 });
 
-
-
-
 </script>
 </head>
 <body>
@@ -56,7 +56,7 @@ AFRAME.registerComponent('position-listener', {
         <p>Powered By</p>
         <h2>VR Inside</h2>
         <br/>
-        <img class="splash__img" src="img/580b57fbd9996e24bc43c00c.png" alt="whoa" />
+        <img class="splash__img" src="img/welcome-logo.png" alt="whoa" />
         <button class="splash__button" id="start">Enter</button>
       </div>
     </div>
@@ -64,10 +64,10 @@ AFRAME.registerComponent('position-listener', {
     <!-- Load Assets -->
     <a-assets>
       <!-- global -->
-      <img id="floor" src="img/other/floor.jpg">
-      <img id="wall" src="img/other/wall-concrete.jpg">
-      <img id="wall-secret" src="img/other/wall-concrete-secret.jpg">
-      <img id="wall-brick" src="img/other/brick.jpg">
+      <img id="floor" src="img/floor.jpg">
+      <img id="wall" src="img/wall.jpg">
+     
+  
       <img id="room-sign-1" src="img/other/room-sign-1.png">
       <img id="room-sign-2" src="img/other/room-sign-2.png">
 
@@ -156,9 +156,12 @@ AFRAME.registerComponent('position-listener', {
     <!-- movement controls-->
     <a-entity id="rig"
     movement-controls
+    position-listener
+    listener
     position="0 0 0">
       <a-entity
       id="player"
+     
       camera="user-height: 2"             
       look-controls="pointerLockEnabled: true"
       position="0 9 0"
@@ -358,5 +361,17 @@ AFRAME.registerComponent('position-listener', {
   <script src="js/map.js"></script>
   <script src="js/video.js"></script>
 
+  <!-- pwa stuff-->
+  <script>
+      if ('serviceWorker' in navigator) {
+         console.log("Will the service worker register?");
+         navigator.serviceWorker.register('service-worker.js')
+           .then(function(reg){
+             console.log("Yes, it did.");
+          }).catch(function(err) {
+             console.log("No it didn't. This happened:", err)
+         });
+      }
+     </script>
 </body>
 </html>

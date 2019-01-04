@@ -30,11 +30,11 @@ const map = {
     0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
-    0, 4, 4, 4, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    4, 0, 0, 0, 4, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
-    4, 0, 0, 0, 4, 4, 4, 1, 0, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-    4, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
-    0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0
+    0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0
   ],
   "height":19,
   "width":19
@@ -79,17 +79,11 @@ function run () {
 
           // secretwall
           else if (map.data[i] === 3) {
-            wall.setAttribute('color', '#fff');
+            wall.setAttribute('color', 'blue');
             wall.setAttribute('material', 'src: #wall-secret; repeat: 4 4');
           }
 
-          // brick wall
-          else if (map.data[i] === 4) {
-            wall.setAttribute('color', '#fff');
-            wall.setAttribute('material', 'src: #wall-brick; repeat: 2 2');
-            wall.setAttribute('static-body', '');
-          }
-
+      
           else { // normal walls
             wall.setAttribute('color', '#fff');
             wall.setAttribute('material', 'src: #wall; repeat: 4 4');

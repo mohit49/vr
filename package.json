@@ -25,5 +25,8 @@
     "aframe-scene",
     "webvr",
     "vr"
-  ]
+  ],
+  "dependencies": {
+    "@editvr/aframe-dialog-popup-component": "^1.7.3"
+  }
 }

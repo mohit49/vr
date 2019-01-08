@@ -60,20 +60,49 @@ AFRAME.registerComponent('log', {
   }
 });
 
-  function playsong(songUrl) {
+  function playsong(songUrl,panelID) {
     myVr.audioElement.src = songUrl;
     myVr.audioElement.play();
     //open popup 
+    if (panelID) document.querySelector(panelID).setAttribute("visible",true)
+    window.setTimeout(function() {
+      document.querySelector(panelID).setAttribute("visible",false)
+    } , 5000)
    
   }
 
-  function stopSong() {
-    myVr.audioElement.pause();
-   
+  function stopSong(panelID) {
+    myVr.audioElement.pause();      
     // close popup
+    if  (panelID) {
+      // now closing on settimeout
+      //document.querySelector(panelID).setAttribute("visible",false);
+    }
   }
+
+  function talkBack(str) {
+    var msg = new SpeechSynthesisUtterance();
+  	msg.text = str;
+    msg.volume = 1;
+    msg.rate = 1;
+    msg.pitch = 1;
+    var voiceSelect = "Google हिन्दी";
+    msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == voiceSelect; })[0];
+    window.speechSynthesis.speak(msg);
+	}  
+
+ // speech api for buying notification
+  function buyAlbum(panelID) {   
+    // speak command
+    talkBack("Selected Item has been added to the cart successfully ! Thank You");
+    if (panelID) {
+       document.querySelector(panelID).setAttribute("visible",false);
+    }
+  }
+
   myVr.playsong = playsong;
   myVr.stopSong = stopSong;
+  myVr.buyAlbum = buyAlbum;
   window.myVr = myVr;
 
 })();
@@ -158,9 +187,9 @@ AFRAME.registerComponent('log', {
       <img id="room3-example" src="img/room3/example.png">
       <img id="room3-example-stat" src="img/room3/examplestat.png">
       <img id="room3-example-num" src="img/room3/examplenum.png">
-      <img id="room3-page-before" src="img/room3/page-before.png">
-      <img id="room3-page-after" src="img/room3/page-after.png">
-      <img id="room3-beforeafter" src="img/room3/beforeafter.png">
+      <img id="room3-page-before" src="img/room3/screen1.jpg">
+      <img id="room3-page-after" src="img/room3/screen2.jpg">
+      <img id="room3-beforeafter" src="img/room3/screen3.jpg">
 
       <!-- Example Room 4-->
       <img id="room4-map" src="img/room4/map.png" />
@@ -294,11 +323,32 @@ AFRAME.registerComponent('log', {
       <a-image position="-1.45 1 6.02" rotation="0 90 0" src="#room-sign-1" height="1.5" width="3"></a-image>
       <a-image position="1.45 1 6.02" rotation="0 -90 0" src="#room-sign-2" height="1.5" width="3"></a-image>
       <!-- Back wall -->
-      <a-image position="-2 0 -4.4" cursor-listener src="#room2-final1" height="2.5" width="2.5"  onmouseenter="myVr.playsong('/sound/chetak.mp3');" onmouseleave="myVr.stopSong()" >
+      <a-image position="-2 0 -4.4" cursor-listener src="#room2-final1" height="2.5" width="2.5"  onmouseenter="myVr.playsong('/sound/chetak.mp3','#box1');" onmouseleave="myVr.stopSong('#box1')" >
+        <a-plane visible="false" id="box1" onclick="myVr.buyAlbum('#box1')" class="buy-panel" color="#f2ecc9" rotation="0 0 0" position="-2 0 -4.4" material="side:double " width="2.5" height="1">
+           <a-text color="#0f5860"  value="Buy ($ 40)"></a-text>
+          <a-animation dur="5000" easing="ease-in" attribute="position" from="-2 0 -6" to="-2 0 3"></a-animation>
+        </a-plane>
       </a-image>
-      <a-image position="-2 2.4 -4.4" cursor-listener src="#room2-final2" height="2.5" width="2.5" onmouseenter="myVr.playsong('/sound/ghugat.mp3');" onmouseleave="myVr.stopSong()"></a-image>
-      <a-image position="2 0 -4.4" cursor-listener src="#room2-final3" height="2.5" width="2.5"    onmouseenter="myVr.playsong('/sound/bhukalyki.mp3');" onmouseleave="myVr.stopSong()" ></a-image>
-      <a-image position="2 2.4 -4.4" cursor-listener src="#room2-final4" height="2.5" width="2.5" onmouseenter="myVr.playsong('/sound/oyelucky.mp3');" onmouseleave="myVr.stopSong()"  ></a-image>
+
+
+      <a-image position="-2 2.4 -4.4" cursor-listener src="#room2-final2" height="2.5" width="2.5" onmouseenter="myVr.playsong('/sound/ghugat.mp3.','#box2');" onmouseleave="myVr.stopSong()">
+        <a-plane visible="false" id="box2" onclick="myVr.buyAlbum('#box2')" class="buy-panel" color="#f2ecc9" rotation="0 0 0" position="-2 0 -4.4" material="side:double " width="2.5" height="1">
+          <a-text color="#0f5860"  value="Buy ($ 30)"></a-text>
+         <a-animation dur="5000" easing="ease-in" attribute="position" from="-2 0 -6" to="-2 2 3"></a-animation>
+       </a-plane>
+      </a-image>
+      <a-image position="2 0 -4.4" cursor-listener src="#room2-final3" height="2.5" width="2.5"    onmouseenter="myVr.playsong('/sound/bhukalyki.mp3','#box3');" onmouseleave="myVr.stopSong()" >
+        <a-plane visible="false" id="box3" onclick="myVr.buyAlbum('#box3')" class="buy-panel" color="#f2ecc9" rotation="0 0 0" position="2 0 -4.4" material="side:double " width="2.5" height="1">
+          <a-text color="#0f5860"  value="Buy ($ 20)"></a-text>
+         <a-animation dur="5000" easing="ease-in" attribute="position" from="2 0 -4" to="2 0 3"></a-animation>
+       </a-plane>
+      </a-image>
+      <a-image position="2 2.4 -4.4" cursor-listener src="#room2-final4" height="2.5" width="2.5" onmouseenter="myVr.playsong('/sound/oyelucky.mp3','#box4');" onmouseleave="myVr.stopSong()"  >
+        <a-plane visible="false" id="box3" onclick="myVr.buyAlbum('#box4')" class="buy-panel" color="#f2ecc9" rotation="0 0 0" position="2 2.4 -4.4"" material="side:double " width="2.5" height="1">
+          <a-text color="#0f5860"  value="Buy ($ 10)"></a-text>
+         <a-animation dur="5000" easing="ease-in" attribute="position" from="2 2.4 -4.4" to="2 2.4 3"></a-animation>
+       </a-plane>
+      </a-image>
       <a-image position="0 5.1 -4.2" cursor-listener rotation="15 0 0" src="#room2-final-sign" height="2.5" width="5"></a-image>
       <!--right wall -->
       <a-entity rotation= "0 -90 0">
@@ -345,6 +395,9 @@ AFRAME.registerComponent('log', {
         <a-image position="-2 .85 -3.05" src="#room3-example-num" height="1" width="1"></a-image>
         <a-image position="-1 -.3 -3.05" src="#room3-example-stat" height="1" width="1"></a-image>
       </a-entity>
+      <a-entity obj-model="obj: #iphone-obj; mtl: #iphone-mtl" position ="0 -1 1" rotation="0 0 0" scale=".01 .01 .01"></a-entity>
+      <a-asset-item id="iphone-obj" src="img/3dmodels/iphone/iphone.obj"></a-asset-item>
+      <a-asset-item id="iphone-mtl" src="img/3dmodels/iphone/iphone.mtl"></a-asset-item>
     </a-entity>
 
     <!-- Example Room 4 (Second Left) -->

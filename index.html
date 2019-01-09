@@ -16,15 +16,16 @@
     
   <link rel="stylesheet" href="main.css">
   <title>VR Inside</title>
+
   <meta name="description" content="VR Shopping Experience">
 
+  <!-- lib files-->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three-vrcontrols@1.0.0/VRControls.min.js"></script>
-  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
- 
-  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.js"></script>
-  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+  <script src="js/libs/three.min.js"></script>
+  <script src="js/libs/VRControls.min.js"></script>
+  <script src="js/libs/aframe.min.js"></script> 
+  <script src="js/libs/aframe-extras.js"></script>
+  <script src="js/libs/aframe-physics.min.js"></script>
  
 <script>
 
@@ -33,10 +34,13 @@
 
   var myVr = {};
 
+
+ // for playing walking sound
   AFRAME.registerComponent('position-listener', {
   tick() {
     const newValue = this.el.getAttribute('position');
     const stringCoords = AFRAME.utils.coordinates.stringify(newValue);
+
     if (this.lastValue !== stringCoords) {
       this.el.emit('positionChanged', newValue);
       this.lastValue = stringCoords;
@@ -50,34 +54,23 @@
   },
 });
 
+// for getting component ready 
 AFRAME.registerComponent('log', {
   schema: {type: 'string'},
   init: function () {
     var stringToLog = this.data;
-    console.log(stringToLog);
-    myVr.audioElement = document.getElementById("song");
-   
+    console.log(stringToLog);   
+    myVr.audioElement = document.getElementById("song");   
   }
 });
 
   function playsong(songUrl,panelID) {
     myVr.audioElement.src = songUrl;
-    myVr.audioElement.play();
-    //open popup 
-    if (panelID) document.querySelector(panelID).setAttribute("visible",true)
-    window.setTimeout(function() {
-      document.querySelector(panelID).setAttribute("visible",false)
-    } , 5000)
-   
+    myVr.audioElement.play();   
   }
 
   function stopSong(panelID) {
-    myVr.audioElement.pause();      
-    // close popup
-    if  (panelID) {
-      // now closing on settimeout
-      //document.querySelector(panelID).setAttribute("visible",false);
-    }
+    myVr.audioElement.pause();     
   }
 
   function talkBack(str) {
@@ -96,7 +89,9 @@ AFRAME.registerComponent('log', {
     // speak command
     talkBack("Selected Item has been added to the cart successfully ! Thank You");
     if (panelID) {
-       document.querySelector(panelID).setAttribute("visible",false);
+      window.setTimeout( function() {
+        document.querySelector(panelID).setAttribute("visible",false);
+      } , 500)       
     }
   }
 
@@ -106,31 +101,14 @@ AFRAME.registerComponent('log', {
   window.myVr = myVr;
 
 })();
-
-
 </script>
 </head>
 <body>
 
-  <a-scene log="Hello, Scene!" fog="color:#272727;far:98.14;near:13.32;density:0" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+  <img id="loader" src="img/loader.gif" class="vr-loader" alt = "loading-icon"/>
 
-    <a-entity
-        id="dialog"
-        visible="false"
-        position="0 0 -2"
-        dialog-popup="
-          openIconImage: ../assets/info.jpg;
-          closeIconImage: ../assets/close.jpg;
-          image: ../assets/tony.jpg;
-          title: Kellogg's frosted flakes;
-          titleFont: roboto;
-          titleColor: #382107;
-          body: Frosted Flakes or Frosties is a breakfast cereal, produced by the Kellogg Company and consisting of sugar-coated corn flakes. It was introduced in the United States in 1952, as Sugar Frosted Flakes.;
-          bodyFont: roboto;
-          bodyColor: #603300;
-          dialogBoxHeight: 3.5;
-          dialogBoxColor: #964f00;
-          "></a-entity>
+  <a-scene log="Hello, Scene Loaded!" fog="color:#272727;far:98.14;near:13.32;density:0" inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+ 
     <!-- Splash Screen -->
     <div class="splash">
       <div class="splash__card">
@@ -215,29 +193,19 @@ AFRAME.registerComponent('log', {
       <video id="theaterVideo" autoplay loop="true" webkit-playsinline playsinline src="img/theater/movie.mp4"></video>
       <img id="theater-curtains" src="img/theater/curtains.png">
       <a-asset-item id="couch-obj" src="img/theater/couch/model.obj"></a-asset-item>
-      <a-asset-item id="couch-mtl" src="img/theater/couch/materials.mtl"></a-asset-item>
+      <a-asset-item id="couch-mtl" src="img/theater/couch/materials.mtl"></a-asset-item>        
+      </a-assets>
 
-      <!-- Secret Room -->
-     
-
-    </a-assets>
-
-       
-
-
-   
 
     <a-assets>
+      <!-- walking sound -->
         <audio id="river" src="/sound/walk.mp3"></audio>
       </a-assets>
       <a-assets>
-        <audio id="song" src="/sound/walk.mp3"></audio>
-      </a-assets>
-    
-      
- 
-
-    <!-- User / Camera -->
+        <!-- audio songs-->
+        <audio id="song" src=""></audio>
+      </a-assets>      
+  
 
     <a-light type="ambient" color="white" position="0 80 0"></a-light>
 
@@ -313,8 +281,9 @@ AFRAME.registerComponent('log', {
         <a-image position="2 1.5 -4.4" src="#room1-example" height="5" width="2.5"></a-image>
       </a-entity>
       <a-entity obj-model="obj: #table-obj; mtl: #table-mtl" position ="0 -1 1" rotation="0 0 0" scale=".01 .01 .01"></a-entity>
-      <a-asset-item id="table-obj" src="img/tabel/table.obj"></a-asset-item>
-      <a-asset-item id="table-mtl" src="img/tabel/table.mtl"></a-asset-item>
+      <a-asset-item id="table-obj" src="img/3dmodels/table/table.obj"></a-asset-item>
+      <a-asset-item id="table-mtl" src="img/3dmodels/table/table.mtl"></a-asset-item>
+      <a-gltf-model src="#shoe" position="0 -1 2" scale="1.6 1.6 1.6" gltf-model=""></a-gltf-model>
     </a-entity>
 
     <!-- Example Room 2 (First Left) -->
@@ -324,28 +293,28 @@ AFRAME.registerComponent('log', {
       <a-image position="1.45 1 6.02" rotation="0 -90 0" src="#room-sign-2" height="1.5" width="3"></a-image>
       <!-- Back wall -->
       <a-image position="-2 0 -4.4" cursor-listener src="#room2-final1" height="2.5" width="2.5"  onmouseenter="myVr.playsong('/sound/chetak.mp3','#box1');" onmouseleave="myVr.stopSong('#box1')" >
-        <a-plane visible="true" id="box1" onclick="myVr.buyAlbum('#box1')" class="buy-panel" color="#000000" rotation="0 0 0" position="-.09 -0.62 0.1" material="side:double " width="2" height=".5">
-          <a-text color="#ffffff" align="center"  value="Buy ($ 10)c"></a-text>
+        <a-plane visible="true" id="box1" onclick="myVr.buyAlbum('#box1')" class="buy-panel" color="#ecefd5" rotation="0 0 0" position="-.09 -0.62 0.1" material="side:double " width="2" height=".5">
+          <a-text color="#3c420e" align="center"  value="Buy ($ 10)"></a-text>
           
         </a-plane>
       </a-image>
 
 
       <a-image position="-2 2.4 -4.4" cursor-listener src="#room2-final2" height="2.5" width="2.5" onmouseenter="myVr.playsong('/sound/ghugat.mp3.','#box2');" onmouseleave="myVr.stopSong()">
-        <a-plane visible="true" id="box2" onclick="myVr.buyAlbum('#box2')" class="buy-panel" color="#000000" rotation="0 0 0" position="-.09 -0.62 0.1" material="side:double " width="2" height=".5">
-          <a-text color="#ffffff" align="center"  value="Buy ($ 10)g"></a-text>
+        <a-plane visible="true" id="box2" onclick="myVr.buyAlbum('#box2')" class="buy-panel" color="#ecefd5" rotation="0 0 0" position="-.09 -0.62 0.1" material="side:double " width="2" height=".5">
+          <a-text color="#3c420e" align="center"  value="Buy ($ 10)"></a-text>
          
        </a-plane>
       </a-image>
       <a-image position="2 0 -4.4" cursor-listener src="#room2-final3" height="2.5" width="2.5"    onmouseenter="myVr.playsong('/sound/bhukalyki.mp3','#box3');" onmouseleave="myVr.stopSong()" >
-        <a-plane visible="true" id="box3" onclick="myVr.buyAlbum('#box3')" class="buy-panel" color="#000000" rotation="0 0 0" position="-0.08 -0.68 0.01" material="side:double " width="2" height=".5">
-          <a-text color="#ffffff" align="center"  value="Buy ($ 20)"></a-text>
+        <a-plane visible="true" id="box3" onclick="myVr.buyAlbum('#box3')" class="buy-panel" color="#ecefd5" rotation="0 0 0" position="-0.08 -0.68 0.01" material="side:double " width="2" height=".5">
+          <a-text color="#3c420e" align="center"  value="Buy ($ 20)"></a-text>
          
        </a-plane>
       </a-image>
       <a-image position="2 2.4 -4.4" cursor-listener src="#room2-final4" height="2.5" width="2.5" onmouseenter="myVr.playsong('/sound/oyelucky.mp3','#box4');" onmouseleave="myVr.stopSong()"  >
-        <a-plane visible="true" id="box3" onclick="myVr.buyAlbum('#box4')" class="buy-panel" color="#000000" rotation="0 0 0" position="-.09 -0.62 0.1" material="side:double " width="2" height=".5">
-          <a-text color="#ffffff" align="center"  value="Buy ($ 10)"></a-text>
+        <a-plane visible="true" id="box4" onclick="myVr.buyAlbum('#box4')" class="buy-panel" color="#ecefd5" rotation="0 0 0" position="-.09 -0.62 0.1" material="side:double " width="2" height=".5">
+          <a-text color="#3c420e" align="center"  value="Buy ($ 10)"></a-text>
         
        </a-plane>
       </a-image>
@@ -395,9 +364,7 @@ AFRAME.registerComponent('log', {
         <a-image position="-2 .85 -3.05" src="#room3-example-num" height="1" width="1"></a-image>
         <a-image position="-1 -.3 -3.05" src="#room3-example-stat" height="1" width="1"></a-image>
       </a-entity>
-      <a-entity obj-model="obj: #iphone-obj; mtl: #iphone-mtl" position ="0 -1 1" rotation="0 0 0" scale=".01 .01 .01"></a-entity>
-      <a-asset-item id="iphone-obj" src="img/3dmodels/iphone/iphone.obj"></a-asset-item>
-      <a-asset-item id="iphone-mtl" src="img/3dmodels/iphone/iphone.mtl"></a-asset-item>
+    
     </a-entity>
 
     <!-- Example Room 4 (Second Left) -->
@@ -474,13 +441,11 @@ AFRAME.registerComponent('log', {
 
 
     <!-- Sky -->
-    <a-sky id="sky" color="#fff"></a-sky>
-   
+    <a-sky id="sky" color="#fff"></a-sky> 
   
-   
-
   </a-scene>
-   
+
+  <!-- scripts for creating rooms-->
   <script src="js/map.js"></script>
   <script src="js/video.js"></script>
 

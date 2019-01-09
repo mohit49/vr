@@ -50,6 +50,7 @@ if (scene.hasLoaded) {
 }
 
 function run () {
+  document.querySelector("#loader").classList.remove("active");
   const WALL_SIZE = 3;
   const WALL_HEIGHT = 12;
   const el = document.querySelector('#walls');
@@ -101,6 +102,7 @@ function run () {
       }
     }
     document.querySelector('#player').setAttribute('position', playerPos);
+    
 }
 
 

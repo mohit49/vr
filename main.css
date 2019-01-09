@@ -2,6 +2,16 @@ html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+
+.vr-loader {
+  display: none;
+}
+.active {
+  display: block;
+  margin: 0 auto;
+  height: 95%;
+}
+
 .splash {
   position: fixed;
   top: 0;

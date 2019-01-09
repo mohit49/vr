@@ -23,4 +23,5 @@ enterButton.addEventListener('click', () => {
   video.play();
   video.pause();
   splash.style.display = 'none';
+  document.querySelector("#loader").classList.add("active");
 });

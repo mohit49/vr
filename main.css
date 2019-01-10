@@ -9,7 +9,8 @@ html {
 .active {
   display: block;
   margin: 0 auto;
-  height: 95%;
+  height: 45%;
+  margin-top:15%;
 }
 
 .splash {
@@ -31,11 +32,11 @@ html {
   text-align: center;
   padding:30px;
   border-radius: 20px;
-  background: url(/img/wooden-background-3217987_960_720.jpg) no-repeat;
+  background: url(/img/front-background.jpg) no-repeat;
   background-size: cover;
   
 }
-.splash__card h1{font-size: 50px; color: #460e00;}
+.splash__card h1{font-size: 25px; color: #460e00;}
 
 @media only screen and (max-width: 700px) {
   .splash__card {
@@ -46,7 +47,7 @@ html {
 }
 
 .splash__button {
-  padding: 20px 30px;
+  padding: 10px 30px;
   border: none;
   background-color: black;
   color: white;
@@ -55,11 +56,13 @@ html {
   text-transform: uppercase;
   font-weight: 700;
   border-radius: 4px;
+  margin-top:10px
 }
 
 .splash__img {
   max-width: 100%;
   display: block;
-  height: 160px;
-  margin: 00px auto;
+  height: 100px;
+  margin: 0 auto;
+  margin-top: -20px;
 }

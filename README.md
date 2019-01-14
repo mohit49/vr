@@ -1,43 +1,20 @@
-# Marketing Presentation in VR Demo
+What is WebVR :
 
-This is a simple demonstration of how easy it is to build virtual reality presentations using A-Frame.
+WebVR is a set of APIs that lets the websites render content to VR headsets, such as the HTC Vive, Oculus Rift, Google Cardboard or OSVR in a web browser.
+The term “WebVR” came into existence in late 2014. The Mozilla team was the first one to coin the term. They proved that WebVR and Firefox are apt to deliver a low-friction VR experience. Installing-free VR experience built on an open web stack was made accessible then. They further moved on to create easy VR authoring sites. This made creating VR on the web an easy task. Thus a framework for building VR experiences- A frame was decided upon. It was built on Three.js (3D JavaScript for engines and libraries). On March 1, 2016, when Mozilla along with the collaboration of Google Chrome, announced the launch of version 1.0, WebVR AP
 
-### Installation
-
-First make sure you have Node installed.
-
-On Mac OS X, it's recommended to use [Homebrew](http://brew.sh/) to install Node + [npm](https://www.npmjs.com):
-
-    brew install node
-
-To install the Node dependencies:
-
-    npm install
-
-
-### Local Development
-
-To serve the site from a simple Node development server:
-
-    npm start
-
-Then launch the site from your favourite browser:
-
-[__http://localhost:3000/__](http://localhost:3000/)
-
-If you wish to serve the site from a different port:
-
-    PORT=8000 npm start
-
-
-### Deploy to Github Pages
-
-Make sure you have committed all changes to master branch. Then run:
-
-    npm run deploy
-
-
-### Links
-[A-Frame](https://aframe.io/)
-[Firefox Nightly (supports WebVR)](https://www.mozilla.org/en-US/firefox/channel/desktop/)
-[Map Generator Inspiration (24 Ways)](https://24ways.org/2016/first-steps-in-vr/)
+About Project
+  This is a prototype project to explore world of VR in web using A-Frame.
+    
+Technology : JS, HTML, CSS
+  A-Frame is a web framework for building virtual reality (VR) experiences. 
+  Originally from Mozilla, A-Frame was developed to be an easy but powerful way to develop VR content. 
+  As an independent open source project, A-Frame has grown to be one of the largest and most welcoming VR communities. 
+  
+How to use:
+Download the repo and open project from any Server (XAMPP or Google DEV server). 
+Open the url of project in mobile browser
+Place the mobile in VR handset
+Use Joystick to control the movement and headset for view
+ 
+  
